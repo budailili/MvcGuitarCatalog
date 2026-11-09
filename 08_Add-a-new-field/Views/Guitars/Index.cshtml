@@ -1,0 +1,77 @@
+@model MvcGuitarCatalog.Models.GuitarPickupViewModel
+
+@{
+    ViewData["Title"] = "Guitar Catalog";
+}
+
+<h1>Guitar Catalog</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Guitars" asp-action="Index" method="get">
+    <p>
+        <select asp-for="GuitarPickup" asp-items="Model.PickupTypes">
+            <option value="">All</option>
+        </select>
+
+        <label>Brand / Model: <input type="text" asp-for="SearchString" /></label>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].ModelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].PickupType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guitars![0].SerialNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Guitars!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
